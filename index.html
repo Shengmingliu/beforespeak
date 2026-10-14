@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="言葉にされない感情が断片化し、意味を失っていく過程を体験するインタラクティブ音響作品。">
+  <title>言葉になる前に｜インタラクティブ音響研究</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="research-head">
+      <div>
+        <p class="eyebrow">INTERACTIVE SOUND STUDY / 01</p>
+        <h1>言葉になる前に</h1>
+      </div>
+      <p class="research-question">言葉にされない期待は、<br>どこで意味を失うのか。</p>
+    </header>
+
+    <div class="study-grid">
+      <aside class="source-panel" aria-labelledby="sourceTitle">
+        <div class="section-head">
+          <span>01</span>
+          <h2 id="sourceTitle">音声を選ぶ</h2>
+        </div>
+
+        <section id="dropZone" class="upload">
+          <label class="file-button">
+            <span class="plus" aria-hidden="true">＋</span>
+            <span>音声ファイルを追加</span>
+            <input id="fileInput" type="file" accept="audio/*">
+          </label>
+          <p>3〜15秒の短い音声を推奨<br>音声はブラウザ内で処理されます</p>
+        </section>
+
+        <section class="preset-picker" aria-labelledby="presetTitle">
+          <p id="presetTitle" class="mini-label">サンプル音声</p>
+          <div class="preset-list">
+            <button class="preset-button" type="button" data-audio-src="./audio/grief-anger.m4a" data-label="悲憤" aria-pressed="false">
+              <span>01</span><strong>悲憤</strong><i aria-hidden="true"></i>
+            </button>
+            <button class="preset-button" type="button" data-audio-src="./audio/shouting-sadness.m4a" data-label="悲嘆の叫び" aria-pressed="false">
+              <span>02</span><strong>悲嘆の叫び</strong><i aria-hidden="true"></i>
+            </button>
+            <button class="preset-button" type="button" data-audio-src="./audio/everyday.m4a" data-label="日常" aria-pressed="false">
+              <span>03</span><strong>日常</strong><i aria-hidden="true"></i>
+            </button>
+          </div>
+        </section>
+
+        <section class="texture-card" aria-labelledby="textureTitle">
+          <p id="textureTitle" class="mini-label">背景音</p>
+          <div class="texture-grid">
+            <label class="texture-control" for="bassLevel">
+              <span>低音</span><output id="bassValue" for="bassLevel">20</output>
+              <input id="bassLevel" type="range" min="0" max="100" value="20" aria-label="低音">
+            </label>
+            <label class="texture-control" for="vinylLevel">
+              <span>レコードノイズ</span><output id="vinylValue" for="vinylLevel">16</output>
+              <input id="vinylLevel" type="range" min="0" max="100" value="16" aria-label="レコードノイズ">
+            </label>
+            <label class="texture-control" for="wobbleLevel">
+              <span>テープ揺れ</span><output id="wobbleValue" for="wobbleLevel">8</output>
+              <input id="wobbleLevel" type="range" min="0" max="100" value="8" aria-label="テープ揺れ">
+            </label>
+          </div>
+        </section>
+      </aside>
+
+      <section id="workbench" class="workbench is-disabled" aria-live="polite">
+        <div class="source-row">
+          <div>
+            <p class="mini-label">現在の音声</p>
+            <h2 id="fileName">音声が選択されていません</h2>
+          </div>
+          <p id="durationLabel" class="duration">00:00</p>
+        </div>
+
+        <div class="wave-card">
+          <div class="wave-aura" aria-hidden="true"></div>
+          <canvas id="waveform" aria-label="音声波形"></canvas>
+          <div class="wave-meta">
+            <span id="stageNumber">段階 1 / 7</span>
+            <strong id="stageName">原音</strong>
+          </div>
+        </div>
+
+        <div class="control-card">
+          <div class="control-heading">
+            <div>
+              <p class="mini-label">断裂度</p>
+              <h2><span id="intensityValue">0</span><small>%</small></h2>
+            </div>
+            <button id="markThreshold" class="text-button" type="button">ここから意味が読めない</button>
+          </div>
+
+          <div class="range-wrap">
+            <input id="intensity" class="range" type="range" min="0" max="100" step="1" value="0" aria-label="断裂度">
+            <div id="stageRail" class="stage-rail" role="list" aria-label="音声が失われる七段階"></div>
+          </div>
+
+          <div class="actions">
+            <button id="playButton" class="primary-button" type="button" disabled><span aria-hidden="true">▶</span>再生</button>
+            <button id="dissolveButton" class="secondary-button" type="button" disabled>連続変化</button>
+            <button id="stopButton" class="ghost-button" type="button" disabled>停止</button>
+            <button id="downloadButton" class="ghost-button" type="button" disabled>書き出す</button>
+          </div>
+        </div>
+
+        <aside id="thresholdResult" class="threshold-result" hidden>
+          <p class="mini-label">理解の境界</p>
+          <p>断裂度 <strong id="thresholdValue">—</strong> から、元の意味を確定できなくなりました。</p>
+        </aside>
+      </section>
+    </div>
+
+    <footer>
+      <span>SPEAKER</span><i></i><span>UTTERANCE</span><i></i><span>RECEIVER</span>
+    </footer>
+  </main>
+
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
